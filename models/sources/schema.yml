@@ -9,3 +9,12 @@ sources: # sources tells dbt these are raw tables
         description: main order tracking table
       - name: lineitem
         description: main lineitem table
+      - name: nation
+        description: main nation table
+  - name: raw_inc_test # a name references this group of tables
+    description: incremental materialization testing
+    database: RETAIL_SNOWFLAKE_INTELLIGENCE_DB # raw tables database name 
+    schema: ANALYTICS # raw tables schema name
+    tables:
+      - name: nation # raw table name
+        description: main nation table
