@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_tpch_nation
+    description: "Incremental nation model with soft deletes"
+    columns:
+      - name: nation_key
+        description: "Unique identifier for nation"
+        tests:
+          - unique
+          - not_null
+    tests:
+      - stg_tpch_nation_soft_dlt_mismatch:
+          source_table: "{{ source('raw_inc_test', 'nation')}}"
+          src_id_col: "n_nationkey"
+          tgt_id_col: "nation_key"
+          delete_flag_col: "is_deleted"

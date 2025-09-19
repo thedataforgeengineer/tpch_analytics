@@ -43,3 +43,5 @@ models:
     stage:
       +schema: STAGE
       +materialized: table
+    tests:
+      +schema: STAGE
