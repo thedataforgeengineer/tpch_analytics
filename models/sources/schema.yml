@@ -18,3 +18,7 @@ sources: # sources tells dbt these are raw tables
     tables:
       - name: nation # raw table name
         description: main nation table
+      - name: customer # raw table name
+        description: main customer table
+      - name: region # raw table name
+        description: main region table
