@@ -1,0 +1,49 @@
+version: 2
+sources: # sources tells dbt these are raw tables
+  - name: tpch
+    description: source tpch data
+    database: snowflake_sample_data
+    schema: tpch_sf1
+    tables:
+      - name: orders
+        description: main order tracking table
+        
+        columns:
+          - name: o_orderkey
+            description: SF*1,500,000 are sparsely populated
+            tests: 
+              - unique
+              - not_null
+
+      - name: lineitem
+        description: main lineitem table
+        columns:
+          - name: l_orderkey
+            description: Foreign Key to O_ORDERKEY
+            tests:
+              - relationships:
+                  to: source('tpch', 'orders')
+                  field: o_orderkey
+
+  - name: raw_tpch # a name references this group of tables
+    description: source tpch data
+    database: snowflake_sample_data # raw tables database name 
+    schema: tpch_sf1 # raw tables schema name
+    tables:
+      - name: orders # raw table name
+        description: main order tracking table
+      - name: lineitem
+        description: main lineitem table
+      - name: nation
+        description: main nation table
+  - name: raw_inc_test # a name references this group of tables
+    description: incremental materialization testing
+    database: RETAIL_SNOWFLAKE_INTELLIGENCE_DB # raw tables database name 
+    schema: ANALYTICS # raw tables schema name
+    tables:
+      - name: nation # raw table name
+        description: main nation table
+      - name: customer # raw table name
+        description: main customer table
+      - name: region # raw table name
+        description: main region table
