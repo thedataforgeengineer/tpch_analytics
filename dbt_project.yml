@@ -43,3 +43,12 @@ models:
     stage:
       +schema: STAGE
       +materialized: table
+    staging:
+      +schema: staging
+      +materialized: view
+    inter:
+      +schema: inter
+      materialized: table
+    mart:
+      +schema: mart
+      materialized: table
