@@ -15,3 +15,17 @@ models:
           src_id_col: "n_nationkey"
           tgt_id_col: "nation_key"
           delete_flag_col: "is_deleted"
+
+exposures:  
+  - name: sales_dashboard    
+    type: dashboard
+    depends_on:      
+      - ref('stg_tphc_orders')      
+    owner:      
+      name: Data Team      
+      email: data-team@example.com    
+    url: https://looker.company.com/dashboards/sales_dashboard    
+    description: "Executive dashboard showing monthly & quarterly performance"    
+    tags:      
+      - marketing     
+      - dashboard
