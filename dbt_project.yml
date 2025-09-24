@@ -8,6 +8,7 @@ config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
 profile: 'default'
+  
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -38,6 +39,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   tpch_analytics:
     # Applies to all files under models/example/
+    +query_tag: "dbt_project={{ project_name }},bu=tst, env=dev,model={{ model_name }}"
     example:
       +materialized: table
     stage:
@@ -52,3 +54,14 @@ models:
     mart:
       +schema: mart
       materialized: table
+
+dispatch:
+   - macro_namespace: dbt
+     search_order:
+      - dbt_snowflake_query_tags
+      - dbt
+
+
+query-comment:
+  comment: '{{ dbt_snowflake_query_tags.get_query_comment(node) }}'
+  append: true
