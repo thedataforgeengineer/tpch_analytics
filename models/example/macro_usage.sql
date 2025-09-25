@@ -1,0 +1,1 @@
+select {{add_columns(1,3)}} as sum_value
